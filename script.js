@@ -1,41 +1,26 @@
 // Seleziono gli elementi
-let titoloInput = document.getElementById("titoloInput");
-let paragrafoInput = document.getElementById("paragrafoInput");
-let btnCrea = document.getElementById("btnCrea");
-let contenitore = document.getElementById("contenitoreArticoli");
+let input = document.querySelector("input");
+let text = document.querySelector("textarea");
+let btn = document.querySelector("button");
+let container = document.querySelector(".container");
 
-// Al click del bottone
-btnCrea.addEventListener("click", function () {
+// Creo Eventi
+btn.addEventListener("click", ()=> {
 
-    // Prendo i valori scritti dall'utente
-    let titolo = titoloInput.value;
-    let paragrafo = paragrafoInput.value;
+    let date = new Date()
+    let formatDate = date.toLocaleDateString()
 
-    // EXTRA: controllo se i campi sono vuoti
-    if (titolo === "" || paragrafo === "") {
-        alert("Attenzione! Titolo e paragrafo non possono essere vuoti!");
-         return; // interrompe la funzione
+    if(input.value == "" && text.value == ""){
+        alert("i campi sono vuoti, non puoi creare il tuo articolo")
+    }else {
+        let div = document.createElement("div")
+        div.style.backgroundColor = "#d3d3d3"
+        div.style.padding = "20px" 
+        div.style.marginTop = "20px"
+        div.style.border = "2px solid black"
+        div.innerHTML = `<h2>${input.value},</h2> <p>${text.value}</p> <i>${formatDate}</i>`
+        container.appendChild(div)
+        input.value = ""
+        text.value = ""
     }
-
-    // Creo l'articolo
-    let articolo = document.createElement("article");
-
-    // Creo il titolo (h2)
-    let h2 = document.createElement("h2");
-    h2.innerText = titolo;
-
-    // Creo il paragrafo
-    let p = document.createElement("p");
-    p.innerText = paragrafo;
-
-    // Metto h2 e p dentro l'articolo
-    articolo.appendChild(h2);
-    articolo.appendChild(p);
-
-    // Aggiungo l'articolo nella pagina
-    contenitore.appendChild(articolo);
-
-    // EXTRA: pulisco gli input
-    titoloInput.value = "";
-    paragrafoInput.value = "";
-});
+})
